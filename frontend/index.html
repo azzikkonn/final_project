@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Photography Portfolio - Showcase your best work">
+    <title>Photography Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">
+                <span class="logo-icon">📷</span>
+                <span class="logo-text">PhotoFolio</span>
+            </a>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#gallery" class="nav-link">Gallery</a></li>
+                <li><a href="#categories" class="nav-link">Categories</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+            </ul>
+            <div class="nav-auth" id="navAuth">
+                <button class="btn btn-outline" onclick="showModal('login')">Login</button>
+                <button class="btn btn-primary" onclick="showModal('register')">Sign Up</button>
+            </div>
+            <div class="nav-user" id="navUser" style="display: none;">
+                <span class="user-greeting">Hello, <span id="userName"></span></span>
+                <button class="btn btn-outline" onclick="logout()">Logout</button>
+            </div>
+            <button class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">
+                <span class="title-line">Capture</span>
+                <span class="title-line accent">Moments</span>
+                <span class="title-line">Forever</span>
+            </h1>
+            <p class="hero-subtitle">Showcase your photography portfolio with stunning visuals and seamless organization</p>
+            <div class="hero-buttons">
+                <button class="btn btn-primary btn-lg" onclick="showModal('register')">Get Started</button>
+                <a href="#gallery" class="btn btn-glass btn-lg">View Gallery</a>
+            </div>
+        </div>
+        <div class="hero-scroll">
+            <span>Scroll Down</span>
+            <div class="scroll-indicator"></div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery-section" id="gallery">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Portfolio</span>
+                <h2 class="section-title">My Gallery</h2>
+                <p class="section-subtitle">A curated collection of my best photography work</p>
+            </div>
+            
+            <!-- Upload Button (visible when logged in) -->
+            <div class="gallery-actions" id="galleryActions" style="display: none;">
+                <button class="btn btn-primary" onclick="showModal('upload')">
+                    <span class="btn-icon">+</span> Upload Photo
+                </button>
+            </div>
+
+            <!-- Category Filter -->
+            <div class="gallery-filter">
+                <button class="filter-btn active" data-category="all">All</button>
+                <button class="filter-btn" data-category="landscape">Landscape</button>
+                <button class="filter-btn" data-category="portrait">Portrait</button>
+                <button class="filter-btn" data-category="street">Street</button>
+                <button class="filter-btn" data-category="nature">Nature</button>
+                <button class="filter-btn" data-category="architecture">Architecture</button>
+            </div>
+
+            <!-- Gallery Grid -->
+            <div class="gallery-grid" id="galleryGrid">
+                <!-- Photos will be loaded dynamically -->
+                <div class="gallery-loading" id="galleryLoading">
+                    <div class="loader"></div>
+                    <p>Loading photos...</p>
+                </div>
+                <div class="gallery-empty" id="galleryEmpty" style="display: none;">
+                    <span class="empty-icon">📷</span>
+                    <p>No photos yet. Be the first to upload!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories-section" id="categories">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Explore</span>
+                <h2 class="section-title">Photo Categories</h2>
+                <p class="section-subtitle">Browse through different styles of photography</p>
+            </div>
+            <div class="categories-grid">
+                <div class="category-card" data-category="landscape">
+                    <div class="category-image" style="background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400')"></div>
+                    <div class="category-overlay">
+                        <h3>Landscape</h3>
+                        <p>Mountains, seas & horizons</p>
+                    </div>
+                </div>
+                <div class="category-card" data-category="portrait">
+                    <div class="category-image" style="background-image: url('https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=400')"></div>
+                    <div class="category-overlay">
+                        <h3>Portrait</h3>
+                        <p>Capturing personality</p>
+                    </div>
+                </div>
+                <div class="category-card" data-category="street">
+                    <div class="category-image" style="background-image: url('https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=400')"></div>
+                    <div class="category-overlay">
+                        <h3>Street</h3>
+                        <p>Urban life stories</p>
+                    </div>
+                </div>
+                <div class="category-card" data-category="nature">
+                    <div class="category-image" style="background-image: url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400')"></div>
+                    <div class="category-overlay">
+                        <h3>Nature</h3>
+                        <p>Flora & fauna</p>
+                    </div>
+                </div>
+                <div class="category-card" data-category="architecture">
+                    <div class="category-image" style="background-image: url('https://images.unsplash.com/photo-1486325212027-8081e485255e?w=400')"></div>
+                    <div class="category-overlay">
+                        <h3>Architecture</h3>
+                        <p>Buildings & structures</p>
+                    </div>
+                </div>
+                <div class="category-card" data-category="wildlife">
+                    <div class="category-image" style="background-image: url('https://images.unsplash.com/photo-1474511320723-9a56873571b7?w=400')"></div>
+                    <div class="category-overlay">
+                        <h3>Wildlife</h3>
+                        <p>Animals in action</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section" id="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <span class="section-tag">About</span>
+                    <h2 class="section-title">Photography Portfolio Platform</h2>
+                    <p>A modern platform for photographers to showcase their work, organize photos by categories, and share their passion with the world.</p>
+                    <ul class="about-features">
+                        <li>
+                            <span class="feature-icon">🎨</span>
+                            <div>
+                                <h4>Beautiful Gallery</h4>
+                                <p>Showcase your photos in a stunning masonry grid layout</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="feature-icon">📁</span>
+                            <div>
+                                <h4>Smart Categories</h4>
+                                <p>Organize your work by landscape, portrait, street & more</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="feature-icon">🔒</span>
+                            <div>
+                                <h4>Secure Platform</h4>
+                                <p>Your photos are protected with secure authentication</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="about-image">
+                    <div class="image-stack">
+                        <img src="https://images.unsplash.com/photo-1452587925148-ce544e77e70d?w=400" alt="Camera">
+                        <img src="https://images.unsplash.com/photo-1502982720700-bfff97f2ecac?w=400" alt="Photography">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="logo-icon">📷</span>
+                    <span class="logo-text">PhotoFolio</span>
+                    <p>Capture moments, share stories</p>
+                </div>
+                <div class="footer-links">
+                    <a href="#home">Home</a>
+                    <a href="#gallery">Gallery</a>
+                    <a href="#categories">Categories</a>
+                    <a href="#about">About</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 PhotoFolio. Created by Aziz</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modals -->
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-overlay" onclick="closeModal('login')"></div>
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('login')">&times;</button>
+            <h2 class="modal-title">Welcome Back</h2>
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" placeholder="your@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Login</button>
+                <p class="modal-switch">Don't have an account? <a href="#" onclick="switchModal('login', 'register')">Sign up</a></p>
+            </form>
+            <div class="form-message" id="loginMessage"></div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div class="modal" id="registerModal">
+        <div class="modal-overlay" onclick="closeModal('register')"></div>
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('register')">&times;</button>
+            <h2 class="modal-title">Create Account</h2>
+            <form id="registerForm" onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label for="regUsername">Username</label>
+                    <input type="text" id="regUsername" placeholder="photographer" required minlength="3">
+                </div>
+                <div class="form-group">
+                    <label for="regEmail">Email</label>
+                    <input type="email" id="regEmail" placeholder="your@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="regPassword">Password</label>
+                    <input type="password" id="regPassword" placeholder="••••••••" required minlength="6">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
+                <p class="modal-switch">Already have an account? <a href="#" onclick="switchModal('register', 'login')">Login</a></p>
+            </form>
+            <div class="form-message" id="registerMessage"></div>
+        </div>
+    </div>
+
+    <!-- Upload Modal -->
+    <div class="modal" id="uploadModal">
+        <div class="modal-overlay" onclick="closeModal('upload')"></div>
+        <div class="modal-content modal-lg">
+            <button class="modal-close" onclick="closeModal('upload')">&times;</button>
+            <h2 class="modal-title">Upload Photo</h2>
+            <form id="uploadForm" onsubmit="handleUpload(event)" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="photoTitle">Title</label>
+                    <input type="text" id="photoTitle" placeholder="Beautiful Sunset" required>
+                </div>
+                
+                <!-- File Upload Zone -->
+                <div class="form-group">
+                    <label>Photo</label>
+                    <div class="upload-zone" id="uploadZone" onclick="document.getElementById('photoFile').click()">
+                        <input type="file" id="photoFile" accept="image/*" style="display: none;" onchange="handleFileSelect(event)">
+                        <div class="upload-zone-content" id="uploadZoneContent">
+                            <span class="upload-icon">📁</span>
+                            <p>Click or drag & drop your photo here</p>
+                            <span class="upload-hint">JPG, PNG, GIF, WEBP (max 10MB)</span>
+                        </div>
+                        <div class="upload-preview" id="uploadPreview" style="display: none;">
+                            <img id="previewImage" src="" alt="Preview">
+                            <button type="button" class="remove-preview" onclick="event.stopPropagation(); removePreview()">×</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="photoCategory">Category</label>
+                    <select id="photoCategory" required>
+                        <option value="landscape">Landscape</option>
+                        <option value="portrait">Portrait</option>
+                        <option value="street">Street</option>
+                        <option value="nature">Nature</option>
+                        <option value="architecture">Architecture</option>
+                        <option value="wildlife">Wildlife</option>
+                        <option value="macro">Macro</option>
+                        <option value="abstract">Abstract</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="photoDescription">Description</label>
+                    <textarea id="photoDescription" rows="3" placeholder="Describe your photo..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="photoTags">Tags (comma separated)</label>
+                    <input type="text" id="photoTags" placeholder="sunset, mountains, nature">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block" id="uploadBtn">Upload Photo</button>
+            </form>
+            <div class="form-message" id="uploadMessage"></div>
+        </div>
+    </div>
+
+    <!-- Photo Detail Modal -->
+    <div class="modal" id="photoModal">
+        <div class="modal-overlay" onclick="closeModal('photo')"></div>
+        <div class="modal-content modal-xl">
+            <button class="modal-close" onclick="closeModal('photo')">&times;</button>
+            <div class="photo-detail" id="photoDetail">
+                <!-- Photo details will be loaded dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <span class="toast-icon"></span>
+        <span class="toast-message"></span>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
